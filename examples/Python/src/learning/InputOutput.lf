@@ -1,0 +1,35 @@
+target Python
+
+reactor Double {
+    input x
+    output y
+    reaction(x) -> y {=
+        y.set(x.value * 2)
+    =}
+}
+
+reactor Destination {
+    input x
+    input y
+
+    reaction(x, y) {=
+        sum = 0
+        if x.is_present():
+            sum += x.value
+        if y.is_present():
+            sum += y.value
+
+        print(f"Received sum: {sum}")
+    =}
+}
+
+main reactor {
+    src = new Double()
+    dst = new Destination()
+
+    src.y -> dst.x
+
+    reaction(startup) {=
+        print("**** Open the front end at " + lf.source_directory() + "/input_output.html")
+    =}
+}
