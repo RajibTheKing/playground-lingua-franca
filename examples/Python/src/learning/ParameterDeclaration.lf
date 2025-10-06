@@ -1,0 +1,23 @@
+target Python
+
+reactor Scale(factor = 2){
+    input x
+    output y
+
+    reaction(x) -> y {=
+        y.set(x.value * self.factor)
+    =}
+}
+
+
+reactor Counter {
+    state count = 0
+    output y
+
+    timer t(0, 100 msec)
+
+    reaction(t) -> y {=
+        y.set(self.count)
+        self.count += 1
+    =}
+}
