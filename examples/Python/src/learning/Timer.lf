@@ -1,0 +1,16 @@
+target Python
+
+main reactor Timer {
+    timer t(0, 1 sec)
+
+    reaction(t) {=
+        print("Timer fired, logical time:", lf.time.logical_elapsed(), "nsec")
+
+        logical_elapsed = lf.time.logical_elapsed()
+        physical_elapsed = lf.time.physical_elapsed()
+
+        print(f"Logical elapsed: {logical_elapsed}, physical elapsed: {physical_elapsed}, Current lag = {physical_elapsed - logical_elapsed} nsec")
+    =}
+}
+
+
