@@ -1,0 +1,17 @@
+target Python
+
+main reactor SlowingClock(start = 100 ms, incr = 100 ms) {
+    state interval = start
+    logical action a
+
+    reaction(startup) -> a {=
+        a.schedule(self.interval)
+    =}
+
+    reaction(a) -> a {=
+        elapsed_logical_time = lf.time.logical_elapsed()
+        print(f"Elapsed logical time: {elapsed_logical_time} nsec")
+        self.interval += self.incr
+        a.schedule(self.interval)
+    =}
+}
