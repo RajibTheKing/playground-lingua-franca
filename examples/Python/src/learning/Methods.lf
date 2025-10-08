@@ -1,0 +1,19 @@
+target Python
+
+main reactor Methods {
+    state foo = 2
+
+    method getFoo() {=
+        return self.foo
+    =}
+
+    method add(x) {=
+        self.foo += x
+    =}
+
+    reaction(startup) {=
+        print(f"Foo is initially {self.getFoo()}")
+        self.add(50)
+        print(f"Foo after adding 50 is {self.getFoo()}")
+    =}
+}
